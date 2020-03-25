@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <link rel="stylesheet" href="/Bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./lib/animate.css">
+    <style>
+        /* v-enter 这是一个时间点 是进入之前，元素的起始状态，此时还没有开始进入 */
+        /* v-leave-to 这是一个时间点 是离开之后，离开的终止状态，此时，元素动画已经结束了 */
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateY(150px);
+        }
+
+        /* v-enter-active 入场动画的时间段 */
+        /* v-leave-active 离场动画的时间段 */
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.8s ease;
+        }
+
+
+
+        /* 下面的v-move和v-leave-active配合使用，能够实现列表后续的元素 渐渐地飘上来的效果 */
+        .v-move{
+            transition: all 0.8s ease; 
+        }
+
+        .v-leave-active{
+            position: absolute;
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        
+        <form action="" method="POST" class="form-inline" role="form">
+        
+            <div class="form-group">
+                <label class="sr-only" for="">label</label>
+                <input type="text" class="form-control" v-model="id" placeholder="Input field">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="">label</label>
+                <input type="text" class="form-control" v-model="name" placeholder="Input field">
+            </div>
+
+
+        
+            
+        
+            <button type="button" class="btn btn-primary" @click="add">Submit</button>
+        </form>
+        
+
+
+        <!-- 在实现列表过渡的时候，如果需要过度的元素，是通过v-for循环渲染出来的，不能使用
+        transition 包裹，需要使用 transition-group -->
+        <!-- 如果要为 v-for 循环创建的元素设置动画，必须为每一个元素设置 :key属性 -->
+        <!-- 给 transition-group 添加 appear属性，实现页面刚展示出来时候，入场时侯的效果 -->
+        <!-- 通过 为transition-group元素，设置tag属性，指定transition-group 渲染为指定的元素，
+        如果不指定 tag 属性，默认，渲染为span标签 -->
+        <transition-group appear tag="ul">
+            <li v-for="(user,i) in list" :key="user.id" @click="del(i)">
+                id:{{user.id}}--------name:{{user.name}}
+            </li>
+        </transition-group>
+        
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                id:'',
+                name:'',
+                list:[
+                    {id:1,name:'zs1'},
+                    {id:2,name:'zs2'},
+                    {id:3,name:'zs3'},]
+            },
+            methods: {
+                add(){
+                    this.list.push({id:this.id,name:this.name})
+                },
+                del(i){
+                    this.list.splice(i,1)
+                }
+            },
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <!-- 2.自定义两组样式，来控制transition内部的元素实现动画 -->
+    <style>
+        /* v-enter 这是一个时间点 是进入之前，元素的起始状态，此时还没有开始进入 */
+        /* v-leave-to 这是一个时间点 是离开之后，离开的终止状态，此时，元素动画已经结束了 */
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            transform: translateX(150px);
+        }
+
+        /* v-enter-active 入场动画的时间段 */
+        /* v-leave-active 离场动画的时间段 */
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.8s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="按钮" @click="flag=!flag">
+        <!-- 1.使用 transition元素，把需要被动画控制的元素，包裹起来 -->
+        <!-- transition元素，是Vue官方提供的 -->
+        <transition>
+            <p v-if="flag">炫酷无敌吊炸天动画</p>
+        </transition>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                flag:true
+            },
+            methods: {
+                
+            },
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

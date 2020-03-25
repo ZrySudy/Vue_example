@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <script src="./lib/vue-router.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+    <div id="app">
+        <router-link to="/account">account</router-link>
+        <router-view></router-view>
+    </div>
+
+<!-- 4 -->
+    <template id="tmp1">
+        <div>
+            <h1>这是account组件</h1>
+            <router-link to="/account/login">login</router-link>
+            <router-link to="/account/register">register</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+
+
+    <!-- 总结，当前学习了几个Vue提供的标签？？？ -->
+    <!-- component，template，transition，transition-group -->
+    <script>
+        // 3
+        var account = {
+            template:'#tmp1'
+        }
+
+        var login = {
+            template:'<p>登录</p>'
+        }
+
+        var register = {
+            template:'<p>注册</p>'
+        }
+
+
+        // 1 
+        var router = new VueRouter({
+            routes: [
+                {path:'/account',
+                component:account,
+                children:[
+                    {path:'login',component: login},
+                    {path:'register',component: register}
+                ]
+                }
+            ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data:{},
+            methods: {},
+            filters:{},
+            directives:{},
+            components: {},
+            // 2
+            router,
+
+            beforeCreate() {},
+            created() {},
+            beforeMount() {},
+            mounted() {},
+            beforeUpdate() {},
+            updated() {},
+            beforeDestroy() {},
+            destroyed() {},
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

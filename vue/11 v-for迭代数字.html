@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 注意:如果使用v-for迭代数字的话，前面的count值从1开始 -->
+        <p v-for="count in 10">这是第{{count}}次循环</p>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods:{}
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

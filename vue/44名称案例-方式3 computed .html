@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <script src="./lib/vue-router.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="firstname">+
+        <input type="text" v-model="lastname">=
+        <input type="text" v-model="fullname">
+
+        <p>{{fullname}}</p>
+    </div>
+
+
+    <!-- 总结，当前学习了几个Vue提供的标签？？？ -->
+    <!-- component，template，transition，transition-group -->
+    <script>
+
+        //创建路由对象
+        router = new VueRouter({
+            routes: []
+        })
+
+
+
+        //创建Vue实例
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                firstname:'',
+                lastname:'',
+            },
+            methods: {},
+            filters:{},
+            directives:{},
+            components: {},
+            watch: {},
+            computed: {/* 在 computed中，可以定义一些属性，这些属性叫做【计算属性】，计算属性的本质
+                就是一个方法，只不过，我们在使用这些计算属性的时候，是把它们的名称，直接当作属性来使用的。
+                并不会把计算属性，当作方法去调用 */
+
+                //注意1：计算属性在引用的时候，一定不要加()去调用，直接把它当作普通属性去使用就好了，
+                //注意2：只要计算属性，这个function内部，所用到的任何data中的数据发送了变化，就会立即重新计算这个计算属性的值
+                //注意3：计算属性的求值结果，会被缓存起来，方便下次直接使用，如果计算属性方法中，所以来的任何数据，都没有发生过变化，则，不会重新对计算属性求值
+                'fullname':function(){
+                    return this.firstname+this.lastname
+                }
+                
+            },
+            router,
+
+
+            beforeCreate() {},
+            created() {},
+            beforeMount() {},
+            mounted() {},
+            beforeUpdate() {},
+            updated() {},
+            beforeDestroy() {},
+            destroyed() {},
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

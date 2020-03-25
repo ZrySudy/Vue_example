@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <script src="./lib/vue-router.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+    <style>
+
+        html,body{
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+            background-color: blue;
+        }
+        h1{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            display: flex;
+            height: 600px;
+        }
+        .left{
+            background-color: green;
+            flex: 2;
+        }
+        .main{
+            background-color: pink;
+            flex: 8;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+        <div class="container">
+            <router-view name='Left'></router-view>
+            <router-view name='Main'></router-view>    
+        </div>
+    </div>
+
+
+    <!-- 总结，当前学习了几个Vue提供的标签？？？ -->
+    <!-- component，template，transition，transition-group -->
+    <script>
+
+        var headers = {
+            template:'<h1 class="header">header组件</h1>'
+        }
+
+        var leftbox = {
+            template:'<h1 class="left">left组件</h1>'
+        }
+
+        var mainbox = {
+            template:'<h1 class="main">main组件</h1>'
+        }
+
+
+        //创建路由对象
+        router = new VueRouter({
+            routes: [
+                {path:'/',
+                components:{
+                    'default':headers,
+                    'Left':leftbox,
+                    'Main':mainbox
+                }}
+            ]
+        })
+
+
+
+        //创建Vue实例
+        var vm = new Vue({
+            el: '#app',
+            data:{},
+            methods: {},
+            filters:{},
+            directives:{},
+            components: {},
+            router,
+
+            beforeCreate() {},
+            created() {},
+            beforeMount() {},
+            mounted() {},
+            beforeUpdate() {},
+            updated() {},
+            beforeDestroy() {},
+            destroyed() {},
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

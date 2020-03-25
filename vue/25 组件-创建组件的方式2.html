@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+    <div id="app">
+        <mycom1></mycom1>
+    </div>
+
+    <script>
+
+        Vue.component('mycom1', Vue.extend({
+            //注意:不论是哪种方式创建出来的组件，组件的template属性指向的模板内容，必须有且只能有唯一的一个根元素
+            template:'<div><h3>这是使用Vue.extend创建的组件</h3><span>123</span></div>'
+        }))
+
+
+        var vm = new Vue({
+            el: '#app',
+            data:{
+
+            },
+            methods: {
+                
+            },
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

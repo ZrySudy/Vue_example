@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+    <!-- 入场 bounceIn  离场 bounceOut -->
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="按钮" @click="flag=!flag">
+
+        <!-- <transition enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
+            <p v-if="flag">炫酷无敌吊炸天动画</p>
+        </transition> -->
+
+
+        <!-- 使用 :duration="毫秒"来统一设置 入场和离场 时候的动画时长 -->
+        <!-- <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="1000">
+            <p v-if="flag" class="animated">炫酷无敌吊炸天动画</p>
+        </transition> -->
+
+
+        <!-- 使用 :duration="{ enter:200,leave:400}"来分别设置入场的时长 和 离场的时长 -->
+        <transition enter-active-class="bounceIn" leave-active-class="bounceOut" :duration="{ enter:200,leave:400}">
+            <p v-if="flag" class="animated">炫酷无敌吊炸天动画</p>
+        </transition>
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                flag:true
+            },
+            methods: {
+                
+            },
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

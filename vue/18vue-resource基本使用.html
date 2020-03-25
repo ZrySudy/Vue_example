@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="get" @click="getInfo">
+        <input type="button" value="post" @click="postInfo">
+        <input type="button" value="jsonp" @click="jsonpInfo">
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+
+            },
+            methods: {
+                getInfo(){//发起get请求
+                    this.$http.get('http://vue.studyit.io/apt/get').then(Response => {
+                        console.log(Response.body)
+                    })
+                },
+                postInfo(){//发起post请求 application/x-www-form-urlencoded
+                    // 手动发起的post请求，默认没有表单格式，所以，有的服务器处理不了
+                    // 通过 post 方法的第三个参数，{emulateJSON：true}设置提交的内容类型为普通表单数据格式
+                    this.$http.post('http://vue.studyit.io/apt/post',{},{ emulateJSON: true}).then(Response => {
+                        console.log(Response.body)
+                    })
+                },
+                jsonpInfo(){//发起JSONP请求
+                    this.$http.jsonp('http://vue.studyit.io/apt/jsonp').then(Response => {
+                        console.log(Response.body)
+                    })
+                }
+
+            },
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->
+
+
+
+<!-- vue-resource官方https://github.com/pagekit/vue-resource/blob/HEAD/docs/http.md -->

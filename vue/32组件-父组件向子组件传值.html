@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 父组件，可以在引用子组件的时候，通过属性绑定{v-bind：}的形式，
+            把需要传递给子组件的数据，以属性绑定的形式，传递到子组件内部，供子组件使用 -->
+        <com1 :parentmsg="msg"></com1>
+    </div>
+
+
+    <!-- 总结，当前学习了几个Vue提供的标签？？？ -->
+    <!-- component，template，transition，transition-group -->
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                msg:'父组件中的数据'
+            },
+            methods: {},
+            filters:{},
+            directives:{},
+            components: {
+                //结论:经过演示，发现，子组件中，默认无法访问到父组件中的data上的数据和methods中方法
+                com1:{
+                    data() { //注意：子组件中的data数据，并不是通过父组件传递过来的，而是子组件
+                        //自身私有的，比如子组件通过Ajax，请求回来的数据，都可以放到data身上
+                        //data上的数据，都是可读可写的
+                        return {
+                            title:'123',
+                            content:'qqq'
+                        }
+                    },
+                    template:'<h1>这是子组件 --- {{parentmsg}}</h1>',
+                    //注意 组件中的所有props中的数据，都是通过父组件传递给子组件的
+                    //props中的数据，都是只读的，无法重新赋值
+                    props:['parentmsg'],//把父组件传递过来的 parentmasg属性，先在props数组中，定义一下，才能使用
+                }
+            },
+
+
+
+            beforeCreate() {},
+            created() {},
+            beforeMount() {},
+            mounted() {},
+            beforeUpdate() {},
+            updated() {},
+            beforeDestroy() {},
+            destroyed() {},
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .thin{
+            font-weight:100;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .size{
+            font-size: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        
+        
+        
+        <!-- 第一种使用方式，直接传递一个数组，注意：这里的class需要使用v-bind做属性绑定 -->
+        <!-- <p :class=['italic','size']>大彭鹏</p> -->
+
+        <!-- 在数组中使用三元表达式 -->
+        <!-- <p :class=['italic','size',flag?'thin':'']>大彭鹏</p> -->
+
+        <!-- 在数组中使用对象来代替三元表达式，提高代码的可读性 -->
+        <!-- <p :class=['italic','size',{'thin':flag}]>大彭鹏</p> -->
+
+        <!-- 在为class使用v-bind绑定对象的时候，对象属性是类名，由于对象的属性可带引号，
+            也可不带引号，所以这里就没写引号，属性的值是一个标识符 -->
+        <p :class="classObj">大彭鹏</p>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag:true,
+                classObj:{ italic: true, size: false, thin: true}
+            },
+            methods:{}
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->

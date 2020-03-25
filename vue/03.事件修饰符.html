@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+    <style>
+        .inner{
+            background-color: blue;
+            height: 5pc;
+        }
+        .outer{
+            background-color: brown;
+            height: 10pc;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+        <!-- .stop 阻止冒泡 -->
+        <!-- <div class="inner" @click = "div1block">
+            <input type="button" value="戳他" @click.stop = "Inputbutton">
+        </div> -->
+
+
+        <!-- .prevent阻止默认行为 -->
+        <!-- <a href="http://www.baidu.com" @click.prevent>有问题找百度</a> -->
+
+
+        <!-- 使用 .capture 实现捕获触发事件机制-->
+        <!-- <div class="inner" @click.capture = "div1block">
+            <input type="button" value="戳他" @click = "Inputbutton">
+        </div> -->
+
+
+        <!-- 使用 .self 实现只有点击当前元素时候，才会触发事件处理函数 -->
+        <!-- <div class="inner" @click.self = "div1block">
+            <input type="button" value="戳他" @click = "Inputbutton">
+        </div> -->
+
+        <!-- 使用.once 只触发一次事件处理函数 -->
+        <!-- <a href="http://www.baidu.com" @click.prevent.once>有问题找百度</a> -->
+
+
+        <!-- 演示 .stop 和.self 的区别-->
+
+        <!-- 。stop 会阻止所有冒泡 -->
+        <!-- <div class="outer" @click = "div2block">
+            <div class="inner" @click = "div1block">
+                <input type="button" value="戳他" @click.stop = "Inputbutton">
+            </div>
+        </div> -->
+
+        <!-- .self只能阻止自己身上的冒泡，不会阻止其他的冒泡 -->
+        <!-- <div class="outer" @click = "div2block">
+            <div class="inner" @click.self = "div1block">
+                <input type="button" value="戳他" @click = "Inputbutton">
+            </div>
+        </div> -->
+
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            date:{
+
+            },
+            methods:{
+                div1block(){
+                    console.log('触发了div1')
+                },
+                div2block(){
+                    console.log('触发了div2')
+                },
+                Inputbutton(){
+                    console.log('触发了button')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

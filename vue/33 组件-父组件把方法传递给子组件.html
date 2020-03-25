@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./lib/vue.min.js"></script>
+    <!-- 注意vue-resource依赖于Vue，所以先后顺序要注意 -->
+    <!-- this.$http.get/post/jsonp -->
+    <script src="./lib/vue-resource.js"></script>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 父组件向子组件传递方法，使用的是事件绑定机制，v-on，当我们自定义了一个事件属性之后，那么，子组件就能够，通过某些方式，来调用传递进去的这个方法了 -->
+        <com1 @func="show"></com1>
+    </div>
+
+
+
+    <template id="tmp1">
+        <div>
+            <h1>这是子组件</h1>
+            <input type="button" value="这是子组件中的按钮-点击它，触发父组件传递过来的func方法" @click="myclick">
+        </div>
+    </template>
+    <!-- 总结，当前学习了几个Vue提供的标签？？？ -->
+    <!-- component，template，transition，transition-group -->
+    <script>
+    var com1 = {
+        template:"#tmp1",
+        data() {
+            return {
+                sonmsg:{name:'son',age:6}
+            }
+        },
+        methods:{
+            myclick(){
+                //当点击子组件的按钮的时候，如何拿到父组件传递过来的func方法，并调用这个方法
+                
+                //emit 英文原意，是触发调用发射的意思
+                this.$emit('func',this.sonmsg)
+            }
+        }
+    }
+
+        var vm = new Vue({
+            el: '#app',
+            data:{
+                datamsgFormSon:null
+            },
+            methods: {
+                show(data){
+                    console.log('调用了父组件的show()---'+data)
+                    //通过事件向父事件传值
+                    this.datamsgFormSon=data
+                    console.log(this.datamsgFormSon)
+                }
+            },
+            filters:{},
+            directives:{},
+            components: {
+                com1
+            },
+
+
+            beforeCreate() {},
+            created() {},
+            beforeMount() {},
+            mounted() {},
+            beforeUpdate() {},
+            updated() {},
+            beforeDestroy() {},
+            destroyed() {},
+        })
+    </script>
+</body>
+</html>
+<!-- 1 先创建一个div -->
+<!-- 2 再在script中new Vue -->
